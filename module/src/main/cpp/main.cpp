@@ -24,7 +24,8 @@ public:
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
-        auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
+        // auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
+        const char *app_data_dir = "/data/data/com.mobile.legends";
         preSpecialize(package_name, app_data_dir);
         env->ReleaseStringUTFChars(args->nice_name, package_name);
         env->ReleaseStringUTFChars(args->app_data_dir, app_data_dir);
