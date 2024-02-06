@@ -24,8 +24,7 @@ public:
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
-        // auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
-        const char *app_data_dir = "/data/data/com.mobile.legends";
+        auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
         preSpecialize(package_name, app_data_dir);
         env->ReleaseStringUTFChars(args->nice_name, package_name);
         env->ReleaseStringUTFChars(args->app_data_dir, app_data_dir);
@@ -46,10 +45,11 @@ private:
     void *data;
     size_t length;
 
-    void preSpecialize(const char *package_name, const char *app_data_dir) {
+    void preSpecialize(const char *package_name, const char *app_data_dir2) {
         if (strcmp(package_name, GamePackageName) == 0) {
             LOGI("detect game: %s", package_name);
-            LOGI("detect dir: %s", app_data_dir);
+            const char *app_data_dir = "/data/data/com.mobile.legends";
+            LOGI("detect directory: %s", app_data_dir);
             enable_hack = true;
             game_data_dir = new char[strlen(app_data_dir) + 1];
             strcpy(game_data_dir, app_data_dir);
